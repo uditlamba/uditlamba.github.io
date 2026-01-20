@@ -881,3 +881,129 @@ label {
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
     box-shadow: 0 0 20px rgba(0, 210, 255, 0.1);
 }
+
+/* ==================== Education & Growth Grid ==================== */
+
+.education-growth-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+#education-growth .education-growth-grid {
+    @supports not (gap: 3rem) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 3rem;
+        row-gap: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .education-growth-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .education-growth-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+/* Education Column Styling */
+.education-column {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.education-column h3 {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #06b6d4;
+    margin-bottom: 2rem;
+}
+
+.education-timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 2rem;
+}
+
+.education-timeline-dot {
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00D2FF, #3A7BD5);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+}
+
+.education-timeline-line {
+    position: absolute;
+    left: 0.5rem;
+    top: 1.5rem;
+    width: 2px;
+    height: 3rem;
+    background: linear-gradient(to bottom, currentColor, transparent);
+}
+
+/* Growth Column Styling */
+.growth-column {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.growth-column h3 {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #a855f7;
+    margin-bottom: 2rem;
+}
+
+/* Logo Enhanced Styling */
+.logo-u {
+    font-family: 'Poppins', 'Inter', 'Syncopate', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, #00D2FF 0%, #3A7BD5 50%, #00D2FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.5));
+    transition: all 0.4s ease;
+}
+
+.logo-dit {
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .logo-u {
+        font-size: 1.625rem;
+    }
+    
+    .logo-dit {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-u {
+        font-size: 1.5rem;
+    }
+    
+    .logo-dit {
+        font-size: 0.75rem;
+    }
+}
