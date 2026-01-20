@@ -102,7 +102,7 @@ const observer = new IntersectionObserver((entries) => {
             const skillBars = entry.target.querySelectorAll('.skill-bar');
             skillBars.forEach(bar => {
                 const width = bar.style.width;
-                bar.style.width = width;
+                bar.style.width = 0;
                 setTimeout(() => {
                     bar.style.width = width;
                 }, 100);
