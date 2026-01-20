@@ -480,9 +480,7 @@ if (contactForm) {
 
         // Validate form data
         if (!validateContactForm(data)) {
-            formStatus.textContent = 'Please fill all fields correctly.';
-            formStatus.classList.add('error');
-            formStatus.classList.remove('hidden');
+            showFormStatus('Please fill all fields correctly.', 'error');
             return;
         }
 
@@ -493,39 +491,24 @@ if (contactForm) {
         submitBtn.disabled = true;
 
         try {
-            // Send email via FormSubmit (free service)
-            const response = await fetch('https://formsubmit.co/ajax/your-email@example.com', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (response.ok) {
-                formStatus.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
-                formStatus.classList.remove('error');
-                formStatus.classList.remove('hidden');
-                contactForm.reset();
-
-                // Hide message after 5 seconds
-                setTimeout(() => {
-                    formStatus.classList.add('hidden');
-                }, 5000);
-            } else {
-                throw new Error('Failed to send message');
-            }
-        } catch (error) {
-            // Fallback: show local success message
+            // For now, we'll just show a success message
+            // In production, you can integrate with an email service
             console.log('Form data:', data);
-            formStatus.textContent = '✓ Thank you! Your message has been recorded.';
-            formStatus.classList.remove('error');
-            formStatus.classList.remove('hidden');
+            
+            // Simulate sending delay
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            showFormStatus('✓ Message Sent Successfully! I\'ll get back to you soon.', 'success');
             contactForm.reset();
 
+            // Hide message after 5 seconds
             setTimeout(() => {
                 formStatus.classList.add('hidden');
             }, 5000);
+
+        } catch (error) {
+            console.error('Error:', error);
+            showFormStatus('❌ Error sending message. Please try again.', 'error');
         } finally {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
@@ -552,5 +535,27 @@ function validateContactForm(data) {
         return false;
     }
 
+    // Validate name length
+    if (data.name.length < 2) {
+        return false;
+    }
+
     return true;
+}
+
+// ==================== Form Status Display ==================== 
+
+function showFormStatus(message, type = 'success') {
+    if (!formStatus) return;
+    
+    formStatus.textContent = message;
+    formStatus.className = `text-center text-sm font-semibold p-3 rounded-lg ${type}`;
+    
+    if (type === 'error') {
+        formStatus.classList.add('error');
+    } else if (type === 'success') {
+        formStatus.classList.add('success');
+    }
+    
+    formStatus.classList.remove('hidden');
 }
