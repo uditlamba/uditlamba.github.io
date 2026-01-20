@@ -143,35 +143,11 @@
                         Beyond coding, I'm a fitness enthusiast and aspiring "Desi" vlogger, sharing my passion for travel and technology on my YouTube channel.
                     </p>
                 </div>
-
-                <!-- Cards Section -->
-                <div class="space-y-4 order-3 md:order-3">
-                    <!-- Education Card -->
-                    <div class="glassmorphism rounded-2xl p-6 animate-fade-in-up" style="animation-delay: 0.1s">
-                        <div class="flex items-center mb-3">
-                            <span class="text-2xl mr-3">🎓</span>
-                            <h4 class="text-xl font-bold text-cyan-400">Education</h4>
-                        </div>
-                        <p class="text-gray-300">B.Tech from <span class="font-semibold">NIET</span></p>
-                        <p class="text-purple-400 font-semibold">CGPA: 7.8/10</p>
-                    </div>
-
-                    <!-- Personal Growth Card -->
-                    <div class="glassmorphism rounded-2xl p-6 animate-fade-in-up" style="animation-delay: 0.2s">
-                        <div class="flex items-center mb-3">
-                            <span class="text-2xl mr-3">💪</span>
-                            <h4 class="text-xl font-bold text-purple-400">Personal Growth</h4>
-                        </div>
-                        <p class="text-gray-300">Fitness Enthusiast</p>
-                        <p class="text-cyan-400 font-semibold">46kg → 72kg transformation</p>
-                        <p class="text-sm text-gray-400 mt-2">Through consistency and dedication</p>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Clean Grid: Education & Growth (2x2 Layout) -->
+    <!-- Education & Growth Section - Unified Grid -->
     <section id="education-growth" class="py-20 px-4 bg-gradient-to-b from-gray-900 to-gray-950">
         <div class="max-w-6xl mx-auto">
             <!-- Section Title -->
@@ -179,69 +155,79 @@
                 <span class="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Education & Growth</span>
             </h2>
 
-            <!-- 2x2 Grid Layout (Equal-sized boxes) -->
+            <!-- 2x2 Grid Layout with Glassmorphism Cards -->
             <div class="grid md:grid-cols-2 gap-8 auto-rows-fr">
                 
-                <!-- Box 1: B.Tech -->
-                <div class="education-box glassmorphism rounded-2xl p-8 animate-fade-in-up hover:shadow-2xl hover:shadow-cyan-500/40 transition-all duration-300" style="animation-delay: 0s; border: 2px solid rgba(0, 210, 255, 0.5); min-height: 280px;">
-                    <div class="h-full flex flex-col justify-center">
+                <!-- Card 1: B.Tech in CSE -->
+                <div class="education-card glassmorphism-neon rounded-2xl p-8 animate-fade-in-up border-cyan-glow" style="animation-delay: 0s; min-height: 320px;">
+                    <div class="h-full flex flex-col justify-between">
+                        <div>
+                            <div class="text-5xl mb-4 text-center">🎓</div>
+                            <h3 class="text-2xl font-bold text-cyan-400 mb-2 text-center">B.Tech in CSE</h3>
+                        </div>
                         <div class="text-center">
-                            <div class="text-5xl mb-4">🎓</div>
-                            <h3 class="text-2xl font-bold text-cyan-400 mb-1">B.Tech in CSE</h3>
-                            <p class="text-sm text-gray-400 mb-6">Noida Institute of Engineering & Technology (NIET), Greater Noida</p>
-                            <div class="inline-block bg-cyan-500/20 border border-cyan-400/50 rounded-lg px-4 py-3">
-                                <span class="text-cyan-300 font-bold text-lg">CGPA: 7.8/10</span>
+                            <p class="text-gray-300 text-sm mb-4">Noida Institute of Engineering and Technology</p>
+                            <p class="text-gray-400 text-xs mb-4">(NIET)</p>
+                            <div class="inline-block bg-cyan-500/20 border border-cyan-400 rounded-lg px-5 py-2">
+                                <span class="text-cyan-300 font-bold text-base">CGPA: 7.8/10</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Box 2: 12th Grade -->
-                <div class="education-box glassmorphism rounded-2xl p-8 animate-fade-in-up hover:shadow-2xl hover:shadow-purple-500/40 transition-all duration-300" style="animation-delay: 0.1s; border: 2px solid rgba(168, 85, 247, 0.5); min-height: 280px;">
-                    <div class="h-full flex flex-col justify-center">
+                <!-- Card 2: 12th Grade (Intermediate) -->
+                <div class="education-card glassmorphism-neon rounded-2xl p-8 animate-fade-in-up border-cyan-glow" style="animation-delay: 0.1s; min-height: 320px;">
+                    <div class="h-full flex flex-col justify-between">
+                        <div>
+                            <div class="text-5xl mb-4 text-center">📚</div>
+                            <h3 class="text-2xl font-bold text-cyan-400 mb-2 text-center">Intermediate</h3>
+                            <p class="text-sm text-gray-300 text-center">(Class XII)</p>
+                        </div>
                         <div class="text-center">
-                            <div class="text-5xl mb-4">📚</div>
-                            <h3 class="text-2xl font-bold text-purple-400 mb-1">Intermediate (12th)</h3>
-                            <p class="text-sm text-gray-400 mb-6">Jawahar Navodaya Vidyalaya (JNV)</p>
-                            <div class="inline-block bg-yellow-500/20 border border-yellow-400/50 rounded-lg px-4 py-3">
-                                <span class="text-yellow-300 font-bold text-lg">📊 Mathematics: 90/100</span>
+                            <p class="text-gray-300 text-sm mb-4">Jawahar Navodaya Vidyalaya</p>
+                            <p class="text-gray-400 text-xs mb-4">(JNV)</p>
+                            <div class="inline-block bg-yellow-500/20 border border-yellow-400 rounded-lg px-5 py-2">
+                                <span class="text-yellow-300 font-bold text-base">📊 Mathematics: 90/100</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Box 3: 10th Grade -->
-                <div class="education-box glassmorphism rounded-2xl p-8 animate-fade-in-up hover:shadow-2xl hover:shadow-cyan-500/40 transition-all duration-300" style="animation-delay: 0.2s; border: 2px solid rgba(0, 210, 255, 0.5); min-height: 280px;">
-                    <div class="h-full flex flex-col justify-center">
+                <!-- Card 3: 10th Grade (High School) -->
+                <div class="education-card glassmorphism-neon rounded-2xl p-8 animate-fade-in-up border-cyan-glow" style="animation-delay: 0.2s; min-height: 320px;">
+                    <div class="h-full flex flex-col justify-between">
+                        <div>
+                            <div class="text-5xl mb-4 text-center">✏️</div>
+                            <h3 class="text-2xl font-bold text-cyan-400 mb-2 text-center">High School</h3>
+                            <p class="text-sm text-gray-300 text-center">(Class X)</p>
+                        </div>
                         <div class="text-center">
-                            <div class="text-5xl mb-4">✏️</div>
-                            <h3 class="text-2xl font-bold text-cyan-400 mb-1">High School (10th)</h3>
-                            <p class="text-sm text-gray-400 mb-6">Jawahar Navodaya Vidyalaya (JNV)</p>
-                            <div class="inline-block bg-green-500/20 border border-green-400/50 rounded-lg px-4 py-3">
-                                <span class="text-green-300 font-bold text-lg">⭐ Mathematics: 95/100</span>
+                            <p class="text-gray-300 text-sm mb-4">Jawahar Navodaya Vidyalaya</p>
+                            <p class="text-gray-400 text-xs mb-4">(JNV)</p>
+                            <div class="inline-block bg-green-500/20 border border-green-400 rounded-lg px-5 py-2">
+                                <span class="text-green-300 font-bold text-base">⭐ Mathematics: 95/100</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Box 4: Personal Growth -->
-                <div class="education-box glassmorphism rounded-2xl p-8 animate-fade-in-up hover:shadow-2xl hover:shadow-purple-500/40 transition-all duration-300" style="animation-delay: 0.3s; border: 2px solid rgba(168, 85, 247, 0.5); min-height: 280px;">
-                    <div class="h-full flex flex-col justify-center">
+                <!-- Card 4: Personal Growth & Fitness -->
+                <div class="education-card glassmorphism-neon rounded-2xl p-8 animate-fade-in-up border-cyan-glow" style="animation-delay: 0.3s; min-height: 320px;">
+                    <div class="h-full flex flex-col justify-between">
                         <div class="text-center">
-                            <!-- Circular Image -->
                             <div class="flex justify-center mb-4">
-                                <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-purple-400 shadow-lg">
-                                    <img 
-                                        src="assets/images/image_gym.jpeg" 
-                                        alt="Personal Growth - Fitness Transformation" 
-                                        class="w-full h-full object-cover"
-                                    >
-                                </div>
+                                <img 
+                                    src="assets/images/image_gym.jpeg" 
+                                    alt="Personal Growth - Fitness Transformation" 
+                                    class="w-24 h-24 rounded-full object-cover border-2 border-cyan-400 shadow-lg shadow-cyan-500/50"
+                                >
                             </div>
-                            <h3 class="text-2xl font-bold text-purple-400 mb-1">Personal Growth</h3>
-                            <p class="text-sm text-gray-400 mb-4">46kg → 72kg Transformation</p>
-                            <div class="inline-block bg-purple-500/20 border border-purple-400/50 rounded-lg px-4 py-3">
-                                <span class="text-purple-300 font-bold">Mastered discipline through consistency.</span>
+                            <h3 class="text-2xl font-bold text-cyan-400 mb-2">Personal Growth</h3>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-gray-300 text-sm mb-3">46kg → 72kg Journey</p>
+                            <div class="bg-cyan-500/20 border border-cyan-400 rounded-lg px-4 py-3">
+                                <span class="text-cyan-300 font-semibold text-sm">Mastering consistency through 5 AM wake-ups, content shoots, and disciplined nutrition</span>
                             </div>
                         </div>
                     </div>
