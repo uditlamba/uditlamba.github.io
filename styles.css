@@ -1008,45 +1008,51 @@ label {
     }
 }
 
-/* ==================== Education Cards Styling ==================== */
+/* ==================== Education & Growth Grid Styling ==================== */
 
-.education-card {
+.education-box {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.education-card::before {
+.education-box::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 210, 255, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(0, 210, 255, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: -1;
 }
 
-.education-card:hover::before {
+.education-box:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 210, 255, 0.8) !important;
+}
+
+.education-box:hover::before {
     opacity: 1;
 }
 
-.education-card:hover {
-    border-color: currentColor !important;
-    box-shadow: 0 20px 50px rgba(0, 210, 255, 0.2) !important;
+/* Ensure equal height boxes in 2x2 grid */
+#education-growth .grid {
+    display: grid;
+    auto-rows: 1fr;
 }
 
-/* Responsive grid for education cards */
-@media (max-width: 1024px) {
-    #education-growth .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
+/* Responsive grid layout */
 @media (max-width: 768px) {
     #education-growth .grid {
         grid-template-columns: 1fr;
+        auto-rows: auto;
+    }
+}
     }
 }
