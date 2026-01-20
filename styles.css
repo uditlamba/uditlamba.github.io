@@ -377,7 +377,7 @@ body {
 
 /* Hero section animations */
 #home .glassmorphism {
-    animation: fadeInDown 0.8s ease-out;
+    /* animation: fadeInDown 0.8s ease-out; */
 }
 
 #home h2 {
