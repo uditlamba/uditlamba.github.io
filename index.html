@@ -6,6 +6,7 @@
     <title>Udit Lamba - Mobile App Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-950 text-gray-100">
     <!-- Navigation Bar -->
@@ -14,8 +15,35 @@
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <a href="#home" class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-                        UL.
+                    <a href="#home" class="logo-container group">
+                        <!-- SVG Logo -->
+                        <svg class="logo-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Outer Rounded Square with Gradient Border -->
+                            <defs>
+                                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#00D2FF;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#9333EA;stop-opacity:1" />
+                                </linearGradient>
+                                <filter id="logoGlow">
+                                    <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            
+                            <!-- Background -->
+                            <rect x="8" y="8" width="64" height="64" rx="12" fill="rgba(15, 23, 42, 0.5)" stroke="url(#logoGradient)" stroke-width="2" filter="url(#logoGlow)"/>
+                            
+                            <!-- Text: < UL / > -->
+                            <text x="40" y="50" font-family="Poppins" font-size="28" font-weight="700" text-anchor="middle" fill="url(#logoGradient)" letter-spacing="-1">
+                                &lt;UL/&gt;
+                            </text>
+                        </svg>
+                        
+                        <!-- Glow Effect -->
+                        <div class="logo-glow"></div>
                     </a>
                 </div>
 
