@@ -581,3 +581,39 @@ textarea:focus {
 #about .glassmorphism:has(img):hover {
     box-shadow: 0 0 30px rgba(0, 210, 255, 0.2), inset 0 0 20px rgba(0, 210, 255, 0.05);
 }
+
+/* ==================== Discipline Section Styling ==================== */
+
+.glassmorphism-premium {
+    background: rgba(15, 23, 42, 0.8) !important;
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(0, 210, 255, 0.3);
+    box-shadow: 0 0 40px rgba(0, 210, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glassmorphism-premium:hover {
+    border: 2px solid rgba(0, 210, 255, 0.6);
+    box-shadow: 0 0 60px rgba(0, 210, 255, 0.3), inset 0 0 30px rgba(0, 210, 255, 0.05);
+    transform: translateY(-2px);
+}
+
+.discipline-image {
+    transition: all 0.4s ease;
+    filter: brightness(0.95);
+}
+
+.discipline-image:hover {
+    filter: brightness(1.1) drop-shadow(0 0 30px rgba(0, 210, 255, 0.5));
+    transform: scale(1.03);
+}
+
+#discipline .glassmorphism {
+    border: 1.5px solid rgba(0, 210, 255, 0.3);
+    transition: all 0.4s ease;
+}
+
+#discipline .glassmorphism:hover {
+    border: 1.5px solid rgba(0, 210, 255, 0.5);
+    box-shadow: 0 0 30px rgba(0, 210, 255, 0.15);
+}

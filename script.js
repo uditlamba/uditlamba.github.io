@@ -4,9 +4,9 @@
 
 const roles = [
     'Flutter Developer',
-    'Problem Solver',
-    'Content Creator',
-    'Tech Enthusiast'
+    'Freelancer',
+    'Fitness Enthusiast',
+    'Problem Solver'
 ];
 
 let roleIndex = 0;
