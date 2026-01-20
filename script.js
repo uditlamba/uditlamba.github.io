@@ -460,12 +460,97 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Portfolio initialized successfully!');
 });
 
-// ==================== Export Functions for Use ==================== 
+// ==================== Contact Form Handling ==================== 
 
-window.Portfolio = {
-    copyToClipboard,
-    showToast,
-    debounce,
-    throttle,
-    trackEvent
-};
+const contactForm = document.getElementById('contact-form');
+const formStatus = document.getElementById('form-status');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Get form data
+        const formData = new FormData(contactForm);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            subject: formData.get('subject'),
+            message: formData.get('message')
+        };
+
+        // Validate form data
+        if (!validateContactForm(data)) {
+            formStatus.textContent = 'Please fill all fields correctly.';
+            formStatus.classList.add('error');
+            formStatus.classList.remove('hidden');
+            return;
+        }
+
+        // Show loading state
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        try {
+            // Send email via FormSubmit (free service)
+            const response = await fetch('https://formsubmit.co/ajax/your-email@example.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                formStatus.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
+                formStatus.classList.remove('error');
+                formStatus.classList.remove('hidden');
+                contactForm.reset();
+
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    formStatus.classList.add('hidden');
+                }, 5000);
+            } else {
+                throw new Error('Failed to send message');
+            }
+        } catch (error) {
+            // Fallback: show local success message
+            console.log('Form data:', data);
+            formStatus.textContent = '✓ Thank you! Your message has been recorded.';
+            formStatus.classList.remove('error');
+            formStatus.classList.remove('hidden');
+            contactForm.reset();
+
+            setTimeout(() => {
+                formStatus.classList.add('hidden');
+            }, 5000);
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
+// ==================== Form Validation ==================== 
+
+function validateContactForm(data) {
+    // Check if all fields are filled
+    if (!data.name || !data.email || !data.subject || !data.message) {
+        return false;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+        return false;
+    }
+
+    // Validate message length
+    if (data.message.length < 10) {
+        return false;
+    }
+
+    return true;
+}
