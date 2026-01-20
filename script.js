@@ -104,6 +104,7 @@ const observer = new IntersectionObserver((entries) => {
                 const width = bar.style.width;
                 console.log('Animating skill bar to width:', width);
                 bar.style.width = 0;
+                 console.log('Animating skill bar to width:', bar.style.width);
                 setTimeout(() => {
                     bar.style.width = width;
                 }, 100);
