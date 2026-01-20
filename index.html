@@ -15,35 +15,21 @@
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <a href="#home" class="logo-container group">
-                        <!-- SVG Logo -->
-                        <svg class="logo-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Outer Rounded Square with Gradient Border -->
-                            <defs>
-                                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#00D2FF;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#9333EA;stop-opacity:1" />
-                                </linearGradient>
-                                <filter id="logoGlow">
-                                    <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                                    <feMerge>
-                                        <feMergeNode in="coloredBlur"/>
-                                        <feMergeNode in="SourceGraphic"/>
-                                    </feMerge>
-                                </filter>
-                            </defs>
+                    <a href="#home" class="logo-brand">
+                        <div class="logo-container">
+                            <!-- Outer Circle/Box Background -->
+                            <div class="logo-background"></div>
                             
-                            <!-- Background -->
-                            <rect x="8" y="8" width="64" height="64" rx="12" fill="rgba(15, 23, 42, 0.5)" stroke="url(#logoGradient)" stroke-width="2" filter="url(#logoGlow)"/>
+                            <!-- Code Brackets and Text -->
+                            <div class="logo-content">
+                                <span class="logo-bracket">&lt;</span>
+                                <span class="logo-text">UL</span>
+                                <span class="logo-bracket">/&gt;</span>
+                            </div>
                             
-                            <!-- Text: < UL / > -->
-                            <text x="40" y="50" font-family="Poppins" font-size="28" font-weight="700" text-anchor="middle" fill="url(#logoGradient)" letter-spacing="-1">
-                                &lt;UL/&gt;
-                            </text>
-                        </svg>
-                        
-                        <!-- Glow Effect -->
-                        <div class="logo-glow"></div>
+                            <!-- Glow Ring -->
+                            <div class="logo-ring"></div>
+                        </div>
                     </a>
                 </div>
 

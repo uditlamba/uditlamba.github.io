@@ -58,78 +58,166 @@ body {
 
 /* ==================== Professional Logo Styling ==================== */
 
-.logo-container {
+.logo-brand {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    position: relative;
     text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
+    z-index: 100;
 }
 
-.logo-container:hover {
-    transform: scale(1.1);
+.logo-brand:hover {
+    transform: scale(1.08);
 }
 
-.logo-svg {
+.logo-brand:focus {
+    outline: none;
+}
+
+.logo-container {
+    position: relative;
     width: 50px;
     height: 50px;
-    display: block;
-    transition: all 0.4s ease;
-    filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.3));
-}
-
-.logo-container:hover .logo-svg {
-    filter: drop-shadow(0 0 20px rgba(0, 210, 255, 0.6)) 
-            drop-shadow(0 0 15px rgba(147, 51, 234, 0.4));
-    animation: logoPulse 1s ease-in-out infinite;
-}
-
-/* Logo Glow Effect */
-.logo-glow {
-    position: absolute;
-    inset: -8px;
-    border-radius: 12px;
-    background: radial-gradient(circle, rgba(0, 210, 255, 0.2) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    z-index: -1;
-}
-
-.logo-container:hover .logo-glow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+    visibility: visible;
     opacity: 1;
-    animation: glowPulse 2s ease-in-out infinite;
+}
+
+.logo-brand:hover .logo-container {
+    filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.8)) 
+            drop-shadow(0 0 25px rgba(147, 51, 234, 0.4));
+}
+
+/* Logo Background - Rounded Square with Gradient Border */
+.logo-background {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(0, 210, 255, 0.1), rgba(147, 51, 234, 0.1));
+    border: 2px solid rgba(0, 210, 255, 0.6);
+    box-shadow: 
+        0 0 10px rgba(0, 210, 255, 0.3),
+        inset 0 0 10px rgba(0, 210, 255, 0.1);
+    transition: all 0.4s ease;
+    z-index: 1;
+}
+
+.logo-brand:hover .logo-background {
+    border-color: rgba(0, 210, 255, 1);
+    box-shadow: 
+        0 0 20px rgba(0, 210, 255, 0.6),
+        0 0 30px rgba(147, 51, 234, 0.3),
+        inset 0 0 15px rgba(0, 210, 255, 0.2);
+}
+
+/* Logo Content - Text */
+.logo-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    font-family: 'Poppins', 'Courier New', monospace;
+    font-weight: 800;
+    font-size: 14px;
+    z-index: 2;
+    letter-spacing: -0.5px;
+    transition: all 0.3s ease;
+}
+
+.logo-text {
+    background: linear-gradient(135deg, #00D2FF, #9333EA);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.logo-bracket {
+    color: rgba(0, 210, 255, 0.8);
+    font-size: 12px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.logo-brand:hover .logo-bracket {
+    color: #00D2FF;
+    text-shadow: 0 0 8px rgba(0, 210, 255, 0.6);
+}
+
+/* Logo Ring - Outer Glow */
+.logo-ring {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    background: radial-gradient(circle, rgba(0, 210, 255, 0.2) 0%, transparent 70%);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+    transition: all 0.4s ease;
+    z-index: 0;
+    opacity: 0;
+    animation: none;
+}
+
+.logo-brand:hover .logo-ring {
+    opacity: 1;
+    animation: logoPulse 2s ease-in-out infinite;
+    box-shadow: 0 0 25px rgba(0, 210, 255, 0.4),
+                0 0 40px rgba(147, 51, 234, 0.2);
 }
 
 /* Logo Animations */
 @keyframes logoPulse {
     0%, 100% {
+        box-shadow: 0 0 15px rgba(0, 210, 255, 0.3),
+                    0 0 25px rgba(147, 51, 234, 0.1);
         transform: scale(1);
     }
     50% {
+        box-shadow: 0 0 25px rgba(0, 210, 255, 0.5),
+                    0 0 40px rgba(147, 51, 234, 0.3);
         transform: scale(1.05);
     }
 }
 
-@keyframes glowPulse {
-    0%, 100% {
-        box-shadow: 0 0 15px rgba(0, 210, 255, 0.3), inset 0 0 15px rgba(0, 210, 255, 0.1);
-    }
-    50% {
-        box-shadow: 0 0 25px rgba(0, 210, 255, 0.5), inset 0 0 25px rgba(147, 51, 234, 0.2);
-    }
-}
-
-/* Responsive Logo */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .logo-svg {
-        width: 42px;
-        height: 42px;
+    .logo-container {
+        width: 44px;
+        height: 44px;
     }
     
-    .logo-container:hover {
-        transform: scale(1.08);
+    .logo-background {
+        width: 42px;
+        height: 42px;
+        border-radius: 8px;
+    }
+    
+    .logo-ring {
+        width: 46px;
+        height: 46px;
+        border-radius: 10px;
+    }
+    
+    .logo-content {
+        font-size: 12px;
+    }
+    
+    .logo-text {
+        font-size: 14px;
+    }
+    
+    .logo-bracket {
+        font-size: 10px;
     }
 }
 
