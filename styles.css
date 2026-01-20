@@ -1007,3 +1007,46 @@ label {
         font-size: 0.75rem;
     }
 }
+
+/* ==================== Education Cards Styling ==================== */
+
+.education-card {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.education-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 210, 255, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.education-card:hover::before {
+    opacity: 1;
+}
+
+.education-card:hover {
+    border-color: currentColor !important;
+    box-shadow: 0 20px 50px rgba(0, 210, 255, 0.2) !important;
+}
+
+/* Responsive grid for education cards */
+@media (max-width: 1024px) {
+    #education-growth .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    #education-growth .grid {
+        grid-template-columns: 1fr;
+    }
+}
