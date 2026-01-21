@@ -332,6 +332,7 @@ function setupFormHandlers() {
                     email: email,
                     subject: subject,
                     message: message,
+                    to_email: 'uditlamba5@gmail.com',
                     from_name: 'Portfolio Contact Form'
                 })
             });
@@ -341,7 +342,7 @@ function setupFormHandlers() {
             if (data.success) {
                 // Success
                 formStatus.className = 'text-center text-sm font-semibold p-3 rounded-lg text-green-400 bg-green-500/10 border border-green-500/30';
-                formStatus.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
+                formStatus.textContent = '✓ Message sent successfully to uditlamba5@gmail.com! I\'ll get back to you soon.';
                 contactForm.reset();
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
