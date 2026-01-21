@@ -276,16 +276,76 @@ const skillObserver = new IntersectionObserver((entries) => {
 
 skillBars.forEach(bar => skillObserver.observe(bar));
 
-// ==================== Form Interactions (Future Enhancement) ==================== 
+// ==================== Form Interactions (Contact Form) ==================== 
 
 function setupFormHandlers() {
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Add form submission logic here
-            console.log('Form submitted');
-        });
+    const contactForm = document.getElementById('contact-form');
+    if (!contactForm) return;
+
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formStatus = document.getElementById('form-status');
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+
+        try {
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            formStatus.className = 'text-center text-sm font-semibold p-3 rounded-lg text-blue-400 bg-blue-500/10 border border-blue-500/30';
+            formStatus.textContent = 'Sending your message...';
+            formStatus.classList.remove('hidden');
+
+            // Prepare the email data
+            const formData = {
+                to_email: 'uditlamba@gmail.com',
+                from_name: contactForm.elements['name'].value,
+                from_email: contactForm.elements['email'].value,
+                subject: contactForm.elements['subject'].value,
+                message: contactForm.elements['message'].value,
+                reply_to: contactForm.elements['email'].value
+            };
+
+            // Send email using Fetch API with a backend endpoint
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    access_key: 'YOUR_WEB3FORMS_ACCESS_KEY',
+                    name: formData.from_name,
+                    email: formData.from_email,
+                    subject: formData.subject,
+                    message: formData.message
+                })
+            });
+
+            if (response.ok) {
+                // Success
+                formStatus.className = 'text-center text-sm font-semibold p-3 rounded-lg text-green-400 bg-green-500/10 border border-green-500/30';
+                formStatus.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
+                contactForm.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+
+                // Auto-hide message after 5 seconds
+                setTimeout(() => {
+                    formStatus.classList.add('hidden');
+                }, 5000);
+            } else {
+                throw new Error('Failed to send message');
+            }
+        } catch (error) {
+            // Error
+            formStatus.className = 'text-center text-sm font-semibold p-3 rounded-lg text-red-400 bg-red-500/10 border border-red-500/30';
+            formStatus.textContent = '✗ Error sending message. Please try again or contact me directly.';
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+
+            console.error('Form submission error:', error);
+        }
     });
 }
 
