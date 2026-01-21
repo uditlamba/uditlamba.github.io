@@ -247,34 +247,41 @@ window.addEventListener('scroll', () => {
 
 // ==================== Skill Bar Animation on View ==================== 
 
-const skillBars = document.querySelectorAll('.skill-bar');
+function initSkillBarAnimation() {
+    const skillBars = document.querySelectorAll('.skill-bar');
 
-const skillObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const bar = entry.target;
-            // Get the target width from inline style
-            const targetWidth = bar.style.width || '0';
-            
-            // Reset to 0 first
-            bar.style.width = '0';
-            bar.style.transition = 'none';
-            
-            // Force reflow to ensure the reset takes effect
-            void bar.offsetWidth;
-            
-            // Now trigger animation
-            setTimeout(() => {
-                bar.style.transition = 'width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                bar.style.width = targetWidth;
-            }, 50);
+    if (skillBars.length === 0) {
+        console.warn('No skill bars found');
+        return;
+    }
 
-            skillObserver.unobserve(bar);
-        }
-    });
-}, { threshold: 0.5 });
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const bar = entry.target;
+                // Get the target width from inline style
+                const targetWidth = bar.style.width || '0';
+                
+                // Reset to 0 first
+                bar.style.width = '0';
+                bar.style.transition = 'none';
+                
+                // Force reflow to ensure the reset takes effect
+                void bar.offsetWidth;
+                
+                // Now trigger animation
+                setTimeout(() => {
+                    bar.style.transition = 'width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    bar.style.width = targetWidth;
+                }, 50);
 
-skillBars.forEach(bar => skillObserver.observe(bar));
+                skillObserver.unobserve(bar);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    skillBars.forEach(bar => skillObserver.observe(bar));
+}
 
 // ==================== Form Interactions (Contact Form) ==================== 
 
@@ -282,38 +289,84 @@ function setupFormHandlers() {
     const contactForm = document.getElementById('contact-form');
     if (!contactForm) return;
 
-    // Formspree handles the submission, but we can add client-side validation
-    contactForm.addEventListener('submit', function(e) {
-        // Get form values
-        const name = contactForm.elements['name'].value.trim();
-        const email = contactForm.elements['email'].value.trim();
-        const subject = contactForm.elements['subject'].value.trim();
-        const message = contactForm.elements['message'].value.trim();
+    // Add real-time validation feedback
+    const inputs = contactForm.querySelectorAll('input, textarea');
+    
+    inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            validateField(this);
+        });
+    });
 
-        // Email validation
+    // Form submission validation
+    contactForm.addEventListener('submit', function(e) {
+        const name = this.elements['name'].value.trim();
+        const email = this.elements['email'].value.trim();
+        const subject = this.elements['subject'].value.trim();
+        const message = this.elements['message'].value.trim();
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         
-        // Validation
-        if (!name || !email || !subject || !message) {
-            e.preventDefault();
-            alert('Please fill all fields.');
-            return false;
+        // Validate all fields
+        let isValid = true;
+        
+        if (!name || name.length < 2) {
+            isValid = false;
+            this.elements['name'].style.borderColor = '#ef4444';
+        } else {
+            this.elements['name'].style.borderColor = '';
         }
 
-        if (!emailRegex.test(email)) {
+        if (!email || !emailRegex.test(email)) {
+            isValid = false;
+            this.elements['email'].style.borderColor = '#ef4444';
+        } else {
+            this.elements['email'].style.borderColor = '';
+        }
+
+        if (!subject || subject.length < 3) {
+            isValid = false;
+            this.elements['subject'].style.borderColor = '#ef4444';
+        } else {
+            this.elements['subject'].style.borderColor = '';
+        }
+
+        if (!message || message.length < 10) {
+            isValid = false;
+            this.elements['message'].style.borderColor = '#ef4444';
+        } else {
+            this.elements['message'].style.borderColor = '';
+        }
+
+        if (!isValid) {
             e.preventDefault();
-            alert('Please enter a valid email address.');
+            console.log('Form validation failed');
             return false;
         }
 
         // If validation passes, form will submit to Formspree
+        console.log('Form validation passed, submitting...');
         return true;
     });
 }
 
-document.addEventListener('DOMContentLoaded', setupFormHandlers);
+function validateField(field) {
+    const value = field.value.trim();
+    let isValid = true;
 
-document.addEventListener('DOMContentLoaded', setupFormHandlers);
+    if (field.name === 'name') {
+        isValid = value.length >= 2;
+    } else if (field.name === 'email') {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        isValid = emailRegex.test(value);
+    } else if (field.name === 'subject') {
+        isValid = value.length >= 3;
+    } else if (field.name === 'message') {
+        isValid = value.length >= 10;
+    }
+
+    field.style.borderColor = isValid ? '' : '#ef4444';
+}
 
 // ==================== Keyboard Shortcuts ==================== 
 
@@ -486,107 +539,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initAOS();
     setupDarkModeToggle();
     highlightNavLink();
+    setupFormHandlers();
+    initSkillBarAnimation();
     
     // Log initialization
     console.log('Portfolio initialized successfully!');
 });
-
-// ==================== Contact Form Handling ==================== 
-
-const contactForm = document.getElementById('contact-form');
-const formStatus = document.getElementById('form-status');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        // Get form data
-        const formData = new FormData(contactForm);
-        const data = {
-            name: formData.get('name'),
-            email: formData.get('email'),
-            subject: formData.get('subject'),
-            message: formData.get('message')
-        };
-
-        // Validate form data
-        if (!validateContactForm(data)) {
-            showFormStatus('Please fill all fields correctly.', 'error');
-            return;
-        }
-
-        // Show loading state
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
-
-        try {
-            // For now, we'll just show a success message
-            // In production, you can integrate with an email service
-            console.log('Form data:', data);
-            
-            // Simulate sending delay
-            await new Promise(resolve => setTimeout(resolve, 800));
-            
-            showFormStatus('✓ Message Sent Successfully! I\'ll get back to you soon.', 'success');
-            contactForm.reset();
-
-            // Hide message after 5 seconds
-            setTimeout(() => {
-                formStatus.classList.add('hidden');
-            }, 5000);
-
-        } catch (error) {
-            console.error('Error:', error);
-            showFormStatus('❌ Error sending message. Please try again.', 'error');
-        } finally {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }
-    });
-}
-
-// ==================== Form Validation ==================== 
-
-function validateContactForm(data) {
-    // Check if all fields are filled
-    if (!data.name || !data.email || !data.subject || !data.message) {
-        return false;
-    }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
-        return false;
-    }
-
-    // Validate message length
-    if (data.message.length < 10) {
-        return false;
-    }
-
-    // Validate name length
-    if (data.name.length < 2) {
-        return false;
-    }
-
-    return true;
-}
-
-// ==================== Form Status Display ==================== 
-
-function showFormStatus(message, type = 'success') {
-    if (!formStatus) return;
-    
-    formStatus.textContent = message;
-    formStatus.className = `text-center text-sm font-semibold p-3 rounded-lg ${type}`;
-    
-    if (type === 'error') {
-        formStatus.classList.add('error');
-    } else if (type === 'success') {
-        formStatus.classList.add('success');
-    }
-    
-    formStatus.classList.remove('hidden');
-}
