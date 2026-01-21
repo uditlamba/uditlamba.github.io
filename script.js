@@ -289,6 +289,29 @@ function setupFormHandlers() {
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
 
+        // Get form values
+        const name = contactForm.elements['name'].value.trim();
+        const email = contactForm.elements['email'].value.trim();
+        const subject = contactForm.elements['subject'].value.trim();
+        const message = contactForm.elements['message'].value.trim();
+
+        // Validation
+        if (!name || !email || !subject || !message) {
+            formStatus.className = 'text-center text-sm font-semibold p-3 rounded-lg text-red-400 bg-red-500/10 border border-red-500/30';
+            formStatus.textContent = '✗ Please fill all fields.';
+            formStatus.classList.remove('hidden');
+            return;
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            formStatus.className = 'text-center text-sm font-semibold p-3 rounded-lg text-red-400 bg-red-500/10 border border-red-500/30';
+            formStatus.textContent = '✗ Please enter a valid email address.';
+            formStatus.classList.remove('hidden');
+            return;
+        }
+
         try {
             // Show loading state
             submitBtn.disabled = true;
@@ -297,32 +320,25 @@ function setupFormHandlers() {
             formStatus.textContent = 'Sending your message...';
             formStatus.classList.remove('hidden');
 
-            // Prepare the email data
-            const formData = {
-                to_email: 'uditlamba@gmail.com',
-                from_name: contactForm.elements['name'].value,
-                from_email: contactForm.elements['email'].value,
-                subject: contactForm.elements['subject'].value,
-                message: contactForm.elements['message'].value,
-                reply_to: contactForm.elements['email'].value
-            };
-
-            // Send email using Fetch API with a backend endpoint
+            // Send email using Web3Forms
             const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    access_key: 'YOUR_WEB3FORMS_ACCESS_KEY',
-                    name: formData.from_name,
-                    email: formData.from_email,
-                    subject: formData.subject,
-                    message: formData.message
+                    access_key: 'a4f8f2e0-8c1e-4d2c-b9f1-5a3e2d4c1b9e',
+                    name: name,
+                    email: email,
+                    subject: subject,
+                    message: message,
+                    from_name: 'Portfolio Contact Form'
                 })
             });
 
-            if (response.ok) {
+            const data = await response.json();
+
+            if (data.success) {
                 // Success
                 formStatus.className = 'text-center text-sm font-semibold p-3 rounded-lg text-green-400 bg-green-500/10 border border-green-500/30';
                 formStatus.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
@@ -335,7 +351,7 @@ function setupFormHandlers() {
                     formStatus.classList.add('hidden');
                 }, 5000);
             } else {
-                throw new Error('Failed to send message');
+                throw new Error(data.message || 'Failed to send message');
             }
         } catch (error) {
             // Error
@@ -348,6 +364,8 @@ function setupFormHandlers() {
         }
     });
 }
+
+document.addEventListener('DOMContentLoaded', setupFormHandlers);
 
 document.addEventListener('DOMContentLoaded', setupFormHandlers);
 
