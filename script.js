@@ -320,29 +320,25 @@ function setupFormHandlers() {
             formStatus.textContent = 'Sending your message...';
             formStatus.classList.remove('hidden');
 
-            // Send email using Web3Forms
-            const response = await fetch('https://api.web3forms.com/submit', {
+            // Send email using Formspree
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('email', email);
+            formData.append('_subject', subject);
+            formData.append('message', message);
+
+            const response = await fetch('https://formspree.io/f/xpwanvvk', {
                 method: 'POST',
+                body: formData,
                 headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    access_key: 'a4f8f2e0-8c1e-4d2c-b9f1-5a3e2d4c1b9e',
-                    name: name,
-                    email: email,
-                    subject: subject,
-                    message: message,
-                    to_email: 'uditlamba5@gmail.com',
-                    from_name: 'Portfolio Contact Form'
-                })
+                    'Accept': 'application/json'
+                }
             });
 
-            const data = await response.json();
-
-            if (data.success) {
+            if (response.ok) {
                 // Success
                 formStatus.className = 'text-center text-sm font-semibold p-3 rounded-lg text-green-400 bg-green-500/10 border border-green-500/30';
-                formStatus.textContent = '✓ Message sent successfully to uditlamba5@gmail.com! I\'ll get back to you soon.';
+                formStatus.textContent = '✓ Message sent successfully! I\'ll get back to you soon at uditlamba5@gmail.com';
                 contactForm.reset();
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
@@ -352,7 +348,7 @@ function setupFormHandlers() {
                     formStatus.classList.add('hidden');
                 }, 5000);
             } else {
-                throw new Error(data.message || 'Failed to send message');
+                throw new Error('Failed to send message');
             }
         } catch (error) {
             // Error
