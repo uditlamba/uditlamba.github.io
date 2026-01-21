@@ -356,7 +356,10 @@ body {
 /* ==================== Skill Bar Animations ==================== */
 
 .skill-bar {
-    transition: width 0.8s ease-in-out;
+    transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: width;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .skill-card:hover .skill-bar {

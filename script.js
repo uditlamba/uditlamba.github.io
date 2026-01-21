@@ -253,14 +253,21 @@ const skillObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const bar = entry.target;
-            const width = bar.style.width;
+            // Get the target width from inline style
+            const targetWidth = bar.style.width || '0';
+            
+            // Reset to 0 first
             bar.style.width = '0';
-
-            // Trigger animation
+            bar.style.transition = 'none';
+            
+            // Force reflow to ensure the reset takes effect
+            void bar.offsetWidth;
+            
+            // Now trigger animation
             setTimeout(() => {
-                bar.style.transition = 'width 1s ease-in-out';
-                bar.style.width = width;
-            }, 100);
+                bar.style.transition = 'width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                bar.style.width = targetWidth;
+            }, 50);
 
             skillObserver.unobserve(bar);
         }
