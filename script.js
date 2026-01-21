@@ -282,83 +282,32 @@ function setupFormHandlers() {
     const contactForm = document.getElementById('contact-form');
     if (!contactForm) return;
 
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const formStatus = document.getElementById('form-status');
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-
+    // Formspree handles the submission, but we can add client-side validation
+    contactForm.addEventListener('submit', function(e) {
         // Get form values
         const name = contactForm.elements['name'].value.trim();
         const email = contactForm.elements['email'].value.trim();
         const subject = contactForm.elements['subject'].value.trim();
         const message = contactForm.elements['message'].value.trim();
 
-        // Validation
-        if (!name || !email || !subject || !message) {
-            formStatus.className = 'text-center text-sm font-semibold p-3 rounded-lg text-red-400 bg-red-500/10 border border-red-500/30';
-            formStatus.textContent = '✗ Please fill all fields.';
-            formStatus.classList.remove('hidden');
-            return;
-        }
-
         // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        // Validation
+        if (!name || !email || !subject || !message) {
+            e.preventDefault();
+            alert('Please fill all fields.');
+            return false;
+        }
+
         if (!emailRegex.test(email)) {
-            formStatus.className = 'text-center text-sm font-semibold p-3 rounded-lg text-red-400 bg-red-500/10 border border-red-500/30';
-            formStatus.textContent = '✗ Please enter a valid email address.';
-            formStatus.classList.remove('hidden');
-            return;
+            e.preventDefault();
+            alert('Please enter a valid email address.');
+            return false;
         }
 
-        try {
-            // Show loading state
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
-            formStatus.className = 'text-center text-sm font-semibold p-3 rounded-lg text-blue-400 bg-blue-500/10 border border-blue-500/30';
-            formStatus.textContent = 'Sending your message...';
-            formStatus.classList.remove('hidden');
-
-            // Send email using Formspree
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('email', email);
-            formData.append('_subject', subject);
-            formData.append('message', message);
-
-            const response = await fetch('https://formspree.io/f/xpwanvvk', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (response.ok) {
-                // Success
-                formStatus.className = 'text-center text-sm font-semibold p-3 rounded-lg text-green-400 bg-green-500/10 border border-green-500/30';
-                formStatus.textContent = '✓ Message sent successfully! I\'ll get back to you soon at uditlamba5@gmail.com';
-                contactForm.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-
-                // Auto-hide message after 5 seconds
-                setTimeout(() => {
-                    formStatus.classList.add('hidden');
-                }, 5000);
-            } else {
-                throw new Error('Failed to send message');
-            }
-        } catch (error) {
-            // Error
-            formStatus.className = 'text-center text-sm font-semibold p-3 rounded-lg text-red-400 bg-red-500/10 border border-red-500/30';
-            formStatus.textContent = '✗ Error sending message. Please try again or contact me directly.';
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-
-            console.error('Form submission error:', error);
-        }
+        // If validation passes, form will submit to Formspree
+        return true;
     });
 }
 
